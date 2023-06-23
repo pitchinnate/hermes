@@ -2,6 +2,7 @@ package hermes
 
 import (
 	"github.com/stretchr/testify/assert"
+	"html/template"
 	"testing"
 )
 
@@ -48,8 +49,8 @@ func (ed *SimpleExample) getExample() (Hermes, Email) {
 	email := Email{
 		Body{
 			Name: "Jon Snow",
-			Intros: []string{
-				"Welcome to Hermes! We're very excited to have you on board.",
+			Intros: []template.HTML{
+				template.HTML("Welcome to Hermes! We're very excited to have you on board."),
 			},
 			Dictionary: []Entry{
 				{"Firstname", "Jon"},
@@ -81,7 +82,7 @@ func (ed *SimpleExample) getExample() (Hermes, Email) {
 			},
 			Actions: []Action{
 				{
-					Instructions: "To get started with Hermes, please click here:",
+					Instructions: template.HTML("To get started with Hermes, please click here:"),
 					Button: Button{
 						Color: "#22BC66",
 						Text:  "Confirm your account",
@@ -89,8 +90,8 @@ func (ed *SimpleExample) getExample() (Hermes, Email) {
 					},
 				},
 			},
-			Outros: []string{
-				"Need help, or have questions? Just reply to this email, we'd love to help.",
+			Outros: []template.HTML{
+				template.HTML("Need help, or have questions? Just reply to this email, we'd love to help."),
 			},
 		},
 	}
@@ -266,11 +267,11 @@ func (ed *WithInviteCode) getExample() (Hermes, Email) {
 
 	email := Email{
 		Body{
-			Name:      "Jon Snow",
+			Name: "Jon Snow",
 			Actions: []Action{
 				{
 					Instructions: "Here is your invite code:",
-					InviteCode: "123456",
+					InviteCode:   "123456",
 				},
 			},
 		},
@@ -321,8 +322,8 @@ Services will be unavailable based on the following schedule:
 Feel free to contact us for any question regarding this matter at [support@hermes-example.com](mailto:support@hermes-example.com) or in our [Gitter](https://gitter.im/)
 
 `,
-			Intros: []string{
-				"An intro that should be kept even with FreeMarkdown",
+			Intros: []template.HTML{
+				template.HTML("An intro that should be kept even with FreeMarkdown"),
 			},
 			Dictionary: []Entry{
 				{"Dictionary that should not be displayed", "Because of FreeMarkdown"},
@@ -347,8 +348,8 @@ Feel free to contact us for any question regarding this matter at [support@herme
 					},
 				},
 			},
-			Outros: []string{
-				"An outro that should be kept even with FreeMarkdown",
+			Outros: []template.HTML{
+				template.HTML("An outro that should be kept even with FreeMarkdown"),
 			},
 		},
 	}
@@ -465,8 +466,8 @@ func TestHermes_TextDirectionAsDefault(t *testing.T) {
 	email := Email{
 		Body{
 			Name: "Jon Snow",
-			Intros: []string{
-				"Welcome to Hermes! We're very excited to have you on board.",
+			Intros: []template.HTML{
+				template.HTML("Welcome to Hermes! We're very excited to have you on board."),
 			},
 			Actions: []Action{
 				{
@@ -478,8 +479,8 @@ func TestHermes_TextDirectionAsDefault(t *testing.T) {
 					},
 				},
 			},
-			Outros: []string{
-				"Need help, or have questions? Just reply to this email, we'd love to help.",
+			Outros: []template.HTML{
+				template.HTML("Need help, or have questions? Just reply to this email, we'd love to help."),
 			},
 		},
 	}
@@ -510,7 +511,7 @@ func TestHermes_Default(t *testing.T) {
 	assert.Empty(t, email.Body.Table.Columns.CustomAlignment)
 	assert.Empty(t, string(email.Body.FreeMarkdown))
 
-	assert.Equal(t, email.Body.Greeting, "Hi")
-	assert.Equal(t, email.Body.Signature, "Yours truly")
+	assert.Equal(t, email.Body.Greeting, template.HTML("Hi"))
+	assert.Equal(t, email.Body.Signature, template.HTML("Yours truly"))
 	assert.Empty(t, email.Body.Title)
 }
