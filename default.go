@@ -382,7 +382,7 @@ func (dt *Default) HTMLTemplate() string {
                             {{if (lt $width 200)}}{{$width = 200}}{{else if (gt $width 570)}}{{$width = 570}}{{else}}{{end}}
                               {{safe "<!--[if mso]>" }}
                               {{ if $action.Button.Text }}
-                                <div style="margin: 30px auto;v-text-anchor:middle;text-align:center">
+                                <div style="margin: 15px auto;v-text-anchor:middle;text-align:center">
                                   <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" 
                                     xmlns:w="urn:schemas-microsoft-com:office:word" 
                                     href="{{ $action.Button.Link }}" 
@@ -415,6 +415,7 @@ func (dt *Default) HTMLTemplate() string {
                                 </div>
                               {{ end }}   
                               {{safe "<![endif]-->" }}
+                              {{ if or $action.Button.Text $action.InviteCode }}
                               {{safe "<!--[if !mso]><!-- -->"}}
                               <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
@@ -433,6 +434,7 @@ func (dt *Default) HTMLTemplate() string {
                                 </tr>
                               </table>
                               {{safe "<![endif]-->" }}
+                              {{ end }}
                           {{ end }}
                         {{ end }}
                       {{ end }}
