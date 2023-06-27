@@ -410,24 +410,6 @@ func (dt *Default) HTMLTemplate() string {
                                   </table>
                                 </div>
                               {{ end }}
-                              {{ if or $action.Button.Text $action.InviteCode }}
-                              <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                  <td align="center">
-                                    <div>
-                                      {{ if $action.Button.Text }}
-                                        <a href="{{ $action.Button.Link }}" class="button" style="{{ with $action.Button.Color }}background-color: {{ . }};{{ end }} {{ with $action.Button.TextColor }}color: {{ . }};{{ end }} width: {{$width}}px;" target="_blank">
-                                          {{ $action.Button.Text }}
-                                        </a>
-                                      {{end}}
-                                      {{ if $action.InviteCode }}
-                                        <span class="invite-code">{{ $action.InviteCode }}</span>
-                                      {{end}}
-                                    </div>
-                                  </td>
-                                </tr>
-                              </table>
-                              {{ end }}
                           {{ end }}
                         {{ end }}
                       {{ end }}
